@@ -4,13 +4,14 @@ import dotenv from "dotenv";
 import prisma from "./utils/prisma";
 import blogsRouter from "./routes/blogs.router"
 import { Request, Response } from "express";
+import limiter from "./utils/rate-limter";
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+app.use(limiter);
 // health
 app.get("/health", (req:Request, res:Response) => res.json({ ok: true }));
 
